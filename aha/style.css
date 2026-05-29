@@ -1,0 +1,513 @@
+/* =================================================================
+   VARIÁVEIS CSS — Custom Properties
+   =================================================================
+   Declaradas dentro de :root, ficam disponíveis em TODO o arquivo.
+
+   :root é uma pseudo-classe que representa o elemento <html>.
+   É o lugar padrão para declarar variáveis globais.
+
+   Sintaxe de declaração: --nome-da-variavel: valor;
+   Sintaxe de uso:        var(--nome-da-variavel)
+
+   VANTAGEM PRINCIPAL:
+   Se o cliente pedir para mudar a cor principal do site,
+   você altera UMA linha aqui em vez de procurar em 50 lugares.
+   ================================================================= */
+   :root {
+    --marrom-escuro: #1c70b9;
+    /* Tom escuro de marrom. Usado no: texto da página, fundo do rodapé.
+       #4A3018 = hexadecimal: 4A de vermelho, 30 de verde, 18 de azul.
+       Pouco azul e verde = tom quente e terroso. */
+
+    --marrom-claro: #941cbd;
+    /* Tom médio de marrom. Usado em: bordas decorativas, hover do menu. */
+
+    --bege: #F5F5DC;
+    /* Quase branco com tom amarelado. Usado no: fundo da página, texto do header/footer.
+       Mais suave que branco puro (#FFFFFF), cansa menos a vista. */
+
+    --verde-militar: #1bb2b2;
+    /* Verde escuro acinzentado. Usado no: fundo do cabeçalho, títulos das seções.
+       Cria contraste com o bege e transmite seriedade. */
+}
+
+
+/* =================================================================
+   RESET UNIVERSAL
+   =================================================================
+   O seletor * (asterisco) seleciona ABSOLUTAMENTE TODOS os elementos.
+
+   PROBLEMA QUE RESOLVE:
+   Cada navegador (Chrome, Firefox, Safari) tem uma folha de estilos
+   interna chamada "user agent stylesheet". Ela define valores padrão
+   para margem, padding, tamanho de fonte, etc. — e esses valores
+   DIFEREM entre navegadores.
+
+   O reset zera esses valores para termos uma base igual em todos.
+   ================================================================= */
+* {
+    margin: 0;
+    /* Remove a margem externa padrão de todos os elementos.
+       Ex: o <body> tem margin: 8px por padrão no Chrome. */
+
+    padding: 0;
+    /* Remove o espaçamento interno padrão de todos os elementos.
+       Ex: <ul> e <ol> têm padding-left padrão para os bullets. */
+
+    box-sizing: border-box;
+    /*
+    PADRÃO ANTIGO (content-box):
+        largura total = width + padding + border
+        Ex: width:200px + padding:20px = elemento ocupa 240px na tela.
+        Isso quebra layouts porque o elemento "cresce" além do esperado.
+
+    COM border-box:
+        largura total = width (padding e border ficam DENTRO)
+        Ex: width:200px com padding:20px = elemento continua com 200px,
+        mas o conteúdo interno tem 160px.
+
+    Muito mais previsível e fácil de trabalhar!
+    */
+}
+
+
+/* =================================================================
+   COMPORTAMENTO DE ROLAGEM
+   ================================================================= */
+html {
+    scroll-behavior: smooth;
+    /*
+    Sem isso (padrão):
+        Clicar em <a href="#origem"> faz a página PULAR instantaneamente.
+
+    Com scroll-behavior: smooth:
+        A página desliza suavemente até o destino.
+        A velocidade e a curva de animação são controladas pelo navegador.
+
+    Observação: o CSS também precisa de scroll-margin-top nos elementos
+    alvo para compensar o cabeçalho fixo (veja .conteudo-topico abaixo).
+    */
+}
+
+
+/* =================================================================
+   ESTILO BASE DO CORPO DA PÁGINA
+   ================================================================= */
+body {
+    background-color: var(--bege);
+    /* Define a cor de fundo de TODA a página usando a variável. */
+
+    color: var(--marrom-escuro);
+    /*
+    Define a cor padrão do TEXTO para a página inteira.
+    Todos os elementos herdam essa cor, a menos que sobrescritos.
+    "Herança" é um conceito central do CSS: propriedades como color
+    e font-family se propagam automaticamente para os filhos.
+    */
+
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /*
+    Lista de fontes em ordem de PRIORIDADE (font stack):
+    1. 'Segoe UI'  → fonte moderna do Windows/Android
+    2. Tahoma      → fonte alternativa do Windows
+    3. Geneva      → fonte alternativa do macOS
+    4. Verdana     → fonte muito legível, disponível em quase todos os SOs
+    5. sans-serif  → FALLBACK GENÉRICO — o navegador escolhe qualquer
+                     fonte sans-serif disponível no sistema
+
+    Por que uma lista?
+    Fontes são arquivos no computador do usuário. Não temos garantia
+    de que 'Segoe UI' existe no Mac ou Linux. A lista garante que
+    sempre haverá uma fonte adequada, do mais ideal ao mais básico.
+    */
+
+    line-height: 1.6;
+    /*
+    Controla o espaço entre as linhas de texto.
+    1.6 = 160% do tamanho da fonte.
+    Se a fonte é 16px → espaçamento entre linhas = 25.6px.
+
+    Por que não usar unidade (px, em)?
+    Um número sem unidade é relativo ao font-size do próprio elemento,
+    então funciona corretamente mesmo quando o tamanho da fonte muda.
+
+    Padrão dos navegadores: ~1.2 (muito apertado para leitura longa).
+    Recomendado para legibilidade: entre 1.4 e 1.8.
+    */
+}
+
+
+/* =================================================================
+   CABEÇALHO
+   ================================================================= */
+header {
+    background-color: var(--verde-militar);
+    color: var(--bege);
+
+    padding: 20px 0;
+    /*
+    Shorthand (atalho) para padding:
+        1 valor:   padding: 20px         → todos os 4 lados
+        2 valores: padding: 20px 0       → cima/baixo | esquerda/direita
+        3 valores: padding: 10px 20px 5px → cima | laterais | baixo
+        4 valores: padding: 5px 10px 15px 20px → cima | direita | baixo | esquerda
+                                                  (sentido horário)
+    Aqui: 20px em cima e embaixo, 0 nas laterais.
+    */
+
+    position: sticky;
+    /*
+    TIPOS DE POSITION:
+        static   → padrão, segue o fluxo normal do documento
+        relative → se move em relação à sua posição original
+        absolute → se posiciona em relação ao pai com position não-static
+        fixed    → fixo na tela, remove do fluxo do documento
+        sticky   → híbrido: se comporta como relative até um ponto,
+                   depois "gruda" como fixed
+
+    sticky aqui: o cabeçalho rola junto COM a página normalmente,
+    mas quando atinge top: 0, para e fica fixo no topo.
+    Diferente de fixed, ele ainda ocupa espaço no layout.
+    */
+
+    top: 0;
+    /* Define onde o elemento "gruda" ao usar position sticky ou fixed.
+       top: 0 = gruda quando chega a 0px do topo da viewport (tela visível). */
+
+    z-index: 1000;
+    /*
+    Controla a ordem de empilhamento (qual elemento fica na frente).
+    Funciona como camadas: maior z-index = mais à frente.
+
+    Só tem efeito em elementos com position diferente de static.
+    O valor 1000 é uma convenção para garantir que o cabeçalho
+    fique sempre acima de qualquer conteúdo da página.
+    */
+
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    /*
+    Sintaxe completa: offset-x | offset-y | blur-radius | spread-radius | color
+    Aqui (sem spread):  offset-x | offset-y | blur-radius | color
+
+        offset-x: 0       → sem deslocamento horizontal
+        offset-y: 4px     → sombra 4px abaixo do elemento
+        blur-radius: 6px  → quanto a sombra se espalhará/desfocará
+        color: rgba(0,0,0,0.1) → preto com 10% de opacidade (quase transparente)
+
+    rgba() vs hex:
+        #000000 = preto 100% opaco
+        rgba(0,0,0,0.1) = preto com 10% de opacidade
+        rgba permite controlar transparência, hex não.
+    */
+}
+
+header h1 {
+    text-align: center;
+    margin-bottom: 15px;
+
+    font-size: 2rem;
+    /*
+    UNIDADES DE MEDIDA DE FONTE:
+        px  → pixels absolutos, não escala com preferências do usuário
+        em  → relativo ao font-size do ELEMENTO PAI
+        rem → relativo ao font-size do ELEMENTO RAIZ (<html>)
+               padrão dos navegadores: 16px
+               2rem = 2 × 16px = 32px
+
+    Por que rem?
+        Se o usuário aumentar o tamanho padrão da fonte no navegador
+        (acessibilidade), elementos em rem crescem proporcionalmente.
+        Elementos em px ficam fixos e ignoram a preferência do usuário.
+    */
+
+    text-transform: uppercase;
+    /* Converte o texto para MAIÚSCULAS puramente via CSS.
+       O texto no HTML continua minúsculo — só a exibição muda.
+       Outros valores: lowercase (minúsculas), capitalize (Primeira Letra). */
+
+    letter-spacing: 2px;
+    /* Espaço adicional entre cada letra (kerning manual).
+       Valores negativos aproximam as letras.
+       Muito usado em títulos com text-transform: uppercase para
+       melhorar a legibilidade, pois letras maiúsculas juntas parecem apertadas. */
+}
+
+nav ul {
+    list-style-type: none;
+    /* Remove os marcadores padrão de lista:
+       <ul> → bolinhas   <ol> → números
+       Outros valores: disc, circle, square, decimal, lower-roman... */
+
+    display: flex;
+    /*
+    FLEXBOX — sistema de layout unidimensional (uma linha ou coluna)
+    Ao aplicar display: flex em um elemento, ele vira um "flex container"
+    e seus filhos diretos viram "flex items".
+
+    Comportamento padrão do flex:
+        - Itens ficam em LINHA (flex-direction: row)
+        - Não quebram para a próxima linha (flex-wrap: nowrap)
+        - Ocupam só o espaço necessário no eixo principal
+        - Se esticam para preencher a altura no eixo cruzado
+    */
+
+    justify-content: center;
+    /* Alinha os flex items no EIXO PRINCIPAL (horizontal, já que flex-direction é row).
+       center → centraliza todos os itens.
+       Outros valores úteis:
+           flex-start   → alinha à esquerda (padrão)
+           flex-end     → alinha à direita
+           space-between → espaço ENTRE os itens (sem bordas)
+           space-around  → espaço ao redor de cada item
+           space-evenly  → espaço igual entre todos, incluindo bordas */
+
+    gap: 30px;
+    /* Espaçamento entre os flex items (substitui o uso de margin entre eles).
+       Mais limpo que margin porque não adiciona espaço nas extremidades. */
+}
+
+nav ul li a {
+    /*
+    Seletor descendente encadeado:
+    Seleciona <a> que está dentro de <li> que está dentro de <ul>
+    que está dentro de <nav>.
+    Só afeta links do menu, não outros <a> da página.
+    */
+
+    color: var(--bege);
+    text-decoration: none;
+    /* Remove o sublinhado padrão dos links.
+       Por padrão, <a> tem: color azul + text-decoration: underline.
+       O reset do navegador não remove isso — precisamos fazer manualmente. */
+
+    font-weight: bold;
+    /* Deixa o texto em negrito.
+       Valores numéricos: 100 (fino) até 900 (extrabold).
+       bold = 700 | normal = 400 */
+
+    font-size: 1.1rem;
+
+    transition: color 0.3s ease;
+    /*
+    TRANSITION — animação de mudança de estado
+    Syntax: propriedade | duração | timing-function | delay
+
+        color     → qual propriedade será animada (a cor do texto)
+        0.3s      → duração da animação (300 milissegundos)
+        ease      → curva de velocidade:
+                    ease       = começa devagar, acelera, termina devagar (padrão)
+                    linear     = velocidade constante
+                    ease-in    = começa devagar, termina rápido
+                    ease-out   = começa rápido, termina devagar
+                    ease-in-out = suave nos dois extremos
+
+    Quando o mouse entra no link, a cor muda de --bege para --marrom-claro
+    gradualmente em 0.3s. Quando o mouse sai, volta em 0.3s.
+    */
+}
+
+nav ul li a:hover {
+    /*
+    PSEUDO-CLASSE :hover
+    =====================
+    Uma pseudo-classe define um estado especial de um elemento.
+    :hover se ativa quando o cursor do mouse está em cima do elemento.
+    Outros exemplos:
+        :focus   → elemento em foco (campo de formulário selecionado)
+        :visited → link já visitado
+        :active  → elemento sendo clicado (no momento do clique)
+        :first-child → primeiro filho de seu pai
+        :nth-child(2) → segundo filho
+    */
+    color: var(--marrom-claro);
+}
+
+
+/* =================================================================
+   CONTEÚDO PRINCIPAL
+   ================================================================= */
+main {
+    max-width: 900px;
+    /*
+    max-width vs width:
+        width: 900px     → sempre 900px, quebra em telas menores
+        max-width: 900px → no máximo 900px, mas encolhe em telas menores
+
+    Em telas maiores que 900px: o main ocupa 900px e fica centralizado.
+    Em telas menores que 900px: o main ocupa 100% da tela disponível.
+    */
+
+    margin: 0 auto;
+    /*
+    O truque de centralização horizontal:
+        margin-left: auto  → o navegador calcula e preenche com o espaço restante
+        margin-right: auto → idem do lado direito
+
+    Se a tela tem 1200px e o main tem max-width de 900px:
+        Espaço restante: 300px
+        auto divide igualmente: 150px de cada lado → centralizado!
+
+    Isso só funciona em elementos block com width ou max-width definidos.
+    */
+
+    padding: 40px 20px;
+    /* 40px em cima/baixo | 20px nas laterais.
+       Os 20px laterais evitam que o texto encoste na borda da tela
+       em dispositivos pequenos (celular). */
+}
+
+
+/* =================================================================
+   CARTÕES DAS SEÇÕES — Classe reutilizável
+   ================================================================= */
+.conteudo-topico {
+    /*
+    SELETOR DE CLASSE
+    =================
+    O ponto (.) indica que é uma classe.
+    Este bloco de CSS se aplica a QUALQUER elemento que tenha
+    class="conteudo-topico" no HTML, independente de qual tag for.
+
+    Diferença entre id e class:
+        id  → único na página (#meu-id) — use para elementos que aparecem uma vez
+        class → reutilizável (.minha-classe) — use para padrões que se repetem
+    */
+
+    background-color: #ffffff;
+    /* Fundo branco para o cartão, criando contraste com o bege da página. */
+
+    padding: 30px;
+
+    margin-bottom: 50px;
+    /* Espaço de 50px abaixo de cada cartão para separá-los visualmente. */
+
+    border-radius: 8px;
+    /*
+    Arredonda os cantos do elemento.
+    Valores:
+        border-radius: 8px        → todos os 4 cantos iguais
+        border-radius: 8px 0      → cima-esq/baixo-dir | cima-dir/baixo-esq
+        border-radius: 50%        → círculo perfeito (em elementos quadrados)
+        border-radius: 10px 5px 20px 0 → cada canto individual (horário)
+    */
+
+    box-shadow: 0 4px 8px rgba(74, 48, 24, 0.1);
+    /* Sombra suave no tom marrom (rgba com os valores do --marrom-escuro).
+       Dá profundidade ao cartão, destacando-o do fundo. */
+
+    scroll-margin-top: 120px;
+    /*
+    SOLUÇÃO PARA O CABEÇALHO FIXO:
+    ================================
+    Problema: ao clicar em "#origem", o navegador rola a página para que
+    o topo da seção fique no topo da viewport. MAS o cabeçalho fixo ocupa
+    ~100px do topo. Resultado: o cabeçalho cobre o início da seção.
+
+    scroll-margin-top: 120px resolve isso:
+    Diz ao navegador "ao rolar até este elemento, pare 120px antes".
+    Assim a seção fica visível abaixo do cabeçalho.
+
+    Alternativa antiga (hack): padding-top + margin-top negativo.
+    scroll-margin-top é a solução moderna e limpa.
+    */
+}
+
+.conteudo-topico h2 {
+    color: var(--verde-militar);
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+
+    border-bottom: 2px solid var(--marrom-claro);
+    /*
+    Shorthand border-bottom:
+        border-bottom-width: 2px
+        border-bottom-style: solid  (obrigatório — sem ele a borda não aparece)
+        border-bottom-color: var(--marrom-claro)
+
+    Estilos de borda: solid | dashed | dotted | double | groove | ridge
+    */
+
+    padding-bottom: 10px;
+    /* Espaço entre o texto do título e a linha (border-bottom) abaixo dele. */
+}
+
+.conteudo-topico img {
+    width: 100%;
+    /* 100% da largura do elemento pai (.conteudo-topico).
+       Imagens são inline por padrão e não expandem automaticamente. */
+
+    height: 350px;
+    /* Altura fixa para TODAS as imagens ficarem uniformes.
+       Sem isso, cada imagem teria sua altura original e o layout ficaria irregular. */
+
+    object-fit: cover;
+    /*
+    COMO A IMAGEM PREENCHE O ESPAÇO DEFINIDO (width × height):
+
+        fill    → estica/distorce para preencher (deforma a imagem)
+        contain → reduz até caber inteira (podem sobrar espaços vazios)
+        cover   → amplia e recorta para preencher SEM distorcer
+                  (partes da imagem podem ficar de fora — como "zoom centralizado")
+        none    → tamanho original, pode sobrar ou faltar espaço
+        scale-down → menor entre "none" e "contain"
+
+    cover é o mais usado para imagens decorativas que precisam
+    preencher um espaço fixo sem deformar.
+    */
+
+    border-radius: 6px;
+    margin-bottom: 20px;
+
+    border: 3px solid var(--bege);
+    /*
+    Shorthand para border (todos os lados):
+        border-width: 3px
+        border-style: solid
+        border-color: var(--bege)
+
+    A borda bege cria uma leve "moldura" ao redor da imagem,
+    integrando-a visualmente com o fundo da página.
+    */
+}
+
+.conteudo-topico p {
+    text-align: justify;
+    /*
+    ALINHAMENTOS DE TEXTO:
+        left    → alinhado à esquerda (padrão em idiomas ocidentais)
+        right   → alinhado à direita
+        center  → centralizado
+        justify → alinhado em ambos os lados (esquerda e direita)
+                  O navegador ajusta o espaço entre as palavras para que
+                  cada linha tenha a mesma largura, como em livros e jornais.
+
+    Cuidado com justify em textos curtos ou em colunas estreitas:
+    pode criar espaços muito grandes entre palavras (o "rio branco").
+    */
+
+    font-size: 1.1rem;
+}
+
+
+/* =================================================================
+   RODAPÉ
+   ================================================================= */
+footer {
+    background-color: var(--marrom-escuro);
+    color: var(--bege);
+    text-align: center;
+    padding: 30px 20px;
+
+    margin-top: 40px;
+    /* Espaço entre o último cartão de seção e o rodapé.
+       Dá "respiro" visual no final da página. */
+}
+
+footer p {
+    margin-bottom: 5px;
+
+    font-size: 0.9rem;
+    /* Menor que o padrão (1rem = 16px).
+       0.9rem ≈ 14.4px — adequado para informações secundárias como
+       copyright e créditos, que não precisam de destaque. */
+}

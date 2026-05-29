@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<!--
+    DOCTYPE (Document Type Declaration)
+    ====================================
+    Esta linha SEMPRE deve ser a primeira do arquivo HTML.
+    Ela não é uma tag HTML, mas uma instrução para o navegador.
+    Diz: "interprete este arquivo como HTML5" (versão atual do HTML).
+    Sem ela, o navegador entra em "quirks mode" (modo antigo),
+    o que pode causar erros visuais inesperados.
+-->
+
+<html lang="pt-BR">
+<!--
+    Tag <html>
+    ===========
+    Elemento raiz: envolve TODO o conteúdo da página.
+    Tudo o que existe no arquivo fica dentro dela.
+
+    Atributo lang="pt-BR":
+    - Informa ao navegador que o idioma é Português do Brasil.
+    - Leitores de tela usam isso para a pronúncia correta.
+    - Ferramentas de tradução automática também dependem disso.
+    - pt = português | BR = Brasil (diferente de pt-PT = Portugal)
+-->
+
+<head>
+<!--
+    Tag <head>
+    ===========
+    Cabeçalho do documento — não aparece na tela para o usuário.
+    Contém "metadados": informações SOBRE a página, não o conteúdo dela.
+    Ex: título da aba, arquivo de estilo, idioma, ícone, etc.
+-->
+
+    <meta charset="UTF-8">
+    <!--
+        Meta charset
+        =============
+        Define o conjunto de caracteres (encoding) usado no arquivo.
+        UTF-8 é o padrão mundial: suporta praticamente todos os
+        caracteres de todos os idiomas, incluindo:
+        ã, é, ç, ü, ñ, 中文, العربية...
+        SEMPRE coloque isso como a primeira tag do <head>.
+    -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--
+        Meta viewport (responsividade)
+        ================================
+        Controla como a página é exibida em dispositivos móveis.
+
+        width=device-width:
+            A largura da página se iguala à largura da tela do dispositivo.
+            Sem isso, o celular renderizaria a página como se fosse um desktop
+            de 980px e depois faria zoom out, deixando tudo minúsculo.
+
+        initial-scale=1.0:
+            O zoom inicial é 100% (sem zoom in nem zoom out).
+            O usuário ainda pode dar zoom manualmente.
+    -->
+
+    <title>GODZILLA</title>
+    <!--
+        Tag <title>
+        ============
+        Define o texto que aparece:
+        - Na aba do navegador
+        - Nos resultados de busca do Google (como título clicável)
+        - Quando a página é salva nos favoritos
+        Deve ser descritivo e único para cada página do site.
+    -->
+
+    <link rel="stylesheet" href="style.css">
+    <!--
+        Tag <link> — importar CSS externo
+        ===================================
+        Conecta um arquivo externo a esta página.
+
+        rel="stylesheet":
+            Diz que o arquivo linkado é uma folha de estilos CSS.
+            "rel" = relationship (relacionamento entre os arquivos).
+
+        href="style.css":
+            Caminho para o arquivo CSS.
+            Como está na mesma pasta, basta o nome do arquivo.
+            Poderia ser href="css/style.css" se estivesse numa subpasta.
+
+        Por que arquivo separado?
+            Separa responsabilidades: HTML = estrutura, CSS = visual.
+            Um único CSS pode estilizar várias páginas ao mesmo tempo.
+    -->
+
+</head>
+
+<body>
+<!--
+    Tag <body>
+    ===========
+    Corpo da página — tudo que está aqui aparece para o usuário.
+    É onde fica o conteúdo real: textos, imagens, links, etc.
+    Só pode existir UM <body> por página.
+-->
+
+
+    <!-- =====================================================
+         CABEÇALHO DO SITE — <header>
+         ===================================================== -->
+    <header>
+    <!--
+        Tag semântica <header>
+        =======================
+        Representa o cabeçalho da página ou de uma seção.
+        "Semântica" significa que a tag tem significado além da aparência:
+        navegadores, leitores de tela e buscadores entendem que é um cabeçalho.
+
+        Alternativa não-semântica: <div id="header"> — funciona visualmente,
+        mas não transmite significado estrutural.
+
+        O CSS aplica: fundo verde, posição fixa no topo (sticky), sombra.
+    -->
+
+        <h1>GOJIRA</h1>
+        <!--
+            Tag <h1> — Título Principal
+            ============================
+            "h" de "heading" (título/cabeçalho).
+            Vai de h1 (mais importante) até h6 (menos importante).
+
+            Regra de ouro: use apenas UM <h1> por página.
+            Ele representa o assunto principal da página inteira.
+            Os buscadores (Google) dão peso especial ao conteúdo do h1.
+        -->
+
+        <nav>
+        <!--
+            Tag semântica <nav>
+            ====================
+            Marca um bloco de links de navegação principal.
+            Leitores de tela permitem ao usuário pular direto para o <nav>.
+            Nem todo grupo de links precisa de <nav> — use só para a
+            navegação principal do site.
+        -->
+
+            <ul>
+            <!--
+                Tag <ul> — Unordered List (Lista não-ordenada)
+                ===============================================
+                Cria uma lista onde a ordem dos itens não importa.
+                Por padrão renderiza com bolinhas (bullets).
+                O CSS remove esses bullets com: list-style-type: none
+
+                Estrutura de uma lista:
+                <ul>              ← abre a lista
+                  <li>Item</li>   ← cada item
+                </ul>             ← fecha a lista
+            -->
+
+                <li><a href="#origem">Showa</a></li>
+                <!--
+                    <li> = List Item (item da lista)
+                    <a>  = Anchor (âncora/link)
+
+                    href="#origem":
+                    O "#" indica uma âncora interna na mesma página.
+                    Ao clicar, a página rola até o elemento que tiver
+                    o atributo id="origem". O CSS adiciona scroll suave.
+                -->
+
+                <li><a href="#processo">Heisei</a></li>
+                <!-- Âncora para id="processo" -->
+
+                <li><a href="#derivados">Millennium</a></li>
+                <!-- Âncora para id="derivados" -->
+
+                <li><a href="#consumo">Monster-Verse</a></li>
+                <!-- Âncora para id="consumo" -->
+
+            </ul>
+        </nav>
+
+    </header>
+    <!-- FIM: <header> -->
+
+
+    <!-- =====================================================
+         CONTEÚDO PRINCIPAL — <main>
+         ===================================================== -->
+    <main>
+    <!--
+        Tag semântica <main>
+        =====================
+        Envolve o conteúdo principal e único da página.
+        Deve existir apenas UM <main> por página.
+        Não deve conter elementos que se repetem em outras páginas
+        (como header, footer, menus laterais).
+
+        O CSS aplica: largura máxima de 900px e centralização automática.
+    -->
+
+
+        <!-- ---- SEÇÃO 1: ORIGEM ---- -->
+        <section id="origem" class="conteudo-topico">
+        <!--
+            Tag semântica <section>
+            ========================
+            Representa um bloco temático de conteúdo dentro da página.
+            Cada <section> deve ter seu próprio título (h2, h3...).
+            Use quando o conteúdo poderia ter uma entrada própria num índice.
+
+            id="origem":
+            - Identificador ÚNICO na página (não pode repetir).
+            - É o destino do link href="#origem" no menu.
+            - Quando o link é clicado, o navegador rola até esta tag.
+            - Também pode ser usado pelo CSS: #origem { ... }
+
+            class="conteudo-topico":
+            - Classe reutilizável (pode repetir em vários elementos).
+            - O CSS usa .conteudo-topico para aplicar o estilo de cartão
+              (fundo branco, sombra, bordas arredondadas) a todas as seções.
+        -->
+
+            <h2>Showa</h2>
+            <!--
+                <h2> — Título de nível 2
+                =========================
+                Subtítulo da seção, hierarquicamente abaixo do h1.
+                Cada <section> tem seu próprio h2.
+                A hierarquia de títulos (h1 > h2 > h3...) é importante
+                para acessibilidade e para o Google entender a estrutura.
+            -->
+
+            <img src="./imagem/Sem título.jpg" alt="Fruto do cacau na árvore">
+            <!--
+                Tag <img> — Imagem
+                ===================
+                Exibe uma imagem na página. É uma tag vazia (sem fechamento).
+
+                src (source = fonte):
+                    Endereço da imagem. Pode ser:
+                    - URL externa: https://... (como aqui)
+                    - Caminho local: imagens/cacau.jpg
+
+                alt (alternative text = texto alternativo):
+                    OBRIGATÓRIO por boas práticas.
+                    Serve para:
+                    1. Leitores de tela (acessibilidade para deficientes visuais)
+                    2. Aparecer no lugar da imagem se ela não carregar
+                    3. SEO: Google lê o alt para entender o que é a imagem
+
+                    Descreva o que está na imagem, não o que ela representa.
+                    ✓ "Fruto do cacau pendurado no galho de uma árvore"
+                    ✗ "imagem" ou deixar vazio
+            -->
+
+            <p> Onde tudo começou: Do terror da bomba atômica ao herói da garotada.  A era Showa engloba os primeiros 15 filmes do Godzilla. Ela é marcada por uma enorme mudança de tom ao longo dos anos: O Início: Começa em 1954 com o filme original, onde o Godzilla é uma metáfora sombria, assustadora e trágica para as armas nucleares e a destruição da Segunda Guerra Mundial.    A Transição: Nos anos 60, o tom começa a mudar. Godzilla deixa de ser o vilão destruidor e passa a enfrentar outras ameaças (como King Ghidorah). O Auge Pop: Nos anos 70, os filmes viraram uma verdadeira "festa " de ficção científica galhofa, feita para crianças. O Godzilla virou o herói da Terra, dava voadoras com cauda, conversava com outros monstros e lutava contra alienígenas e robôs (como o Mechagodzilla). Resumo da ópera: Começou como um drama de terror nuclear e terminou como um herói de ação infantil que dançava para comemorar vitórias.</p>
+            <!--
+                Tag <p> — Parágrafo
+                ====================
+                Cria um bloco de texto. O navegador adiciona espaçamento
+                automático antes e depois de cada <p>.
+                Não use <br> para separar parágrafos — use <p> para cada um.
+            -->
+
+        </section>
+        <!-- FIM: Seção Origem -->
+
+
+        <!-- ---- SEÇÃO 2: PROCESSO DE PRODUÇÃO ---- -->
+        <section id="processo" class="conteudo-topico">
+        <!--
+            id="processo": destino do link #processo no menu.
+            class="conteudo-topico": herda o mesmo estilo de cartão.
+        -->
+
+            <h2>Heisei</h2>
+
+            <img src="./imagem/gojira.jpg" alt="Sementes de cacau secando ao sol">
+
+            <p>A Era Heisei do Godzilla (que vai de 1984 a 1995) é considerada por muitos fãs como a era de ouro da franquia, trazendo uma cronologia amarrada, tom mais sério e monstros icônicos. Aqui está um resumo dos principais pontos:  O Reinício (Retcon): A era Heisei ignora todos os filmes da era Showa anteriores, exceto o clássico original de 1954. Ela começa com O Retorno de Godzilla (1984) e se passa durante o período de Guerra Fria. Tom Mais Sombrio e Realista: O tom infantil dos anos 70 foi descartado. Godzilla volta a ser uma força da natureza aterrorizante, uma metáfora viva do perigo nuclear, e a humanidade usa alta tecnologia (como o famoso veículo militar Super X) para tentar contê-lo. Continuidade Estrita: Ao contrário de outras eras, os filmes Heisei seguem uma linha do tempo contínua e direta. Os danos de um filme são lembrados no próximo, e os personagens humanos evoluem ao longo da saga (como a paranormal Miki Saegusa, que aparece em quase todos os filmes).Inimigos Memoráveis: Foi nesta era que nasceram vilões icônicos com designs biológicos complexos, como Biollante (um híbrido de planta, humano e Godzilla), SpaceGodzilla e o devastador Destoroyah. Monstros clássicos como King Ghidorah, Mothra e Mechagodzilla também foram repaginados. O Fim Trágico: A era encerra-se de forma épica em Godzilla vs. Destoroyah (1995), onde o coração nuclear de Godzilla entra em fusão (o famoso Burning Godzilla), levando o monstro à morte por derretimento radioativo, enquanto seu filho (Godzilla Jr.) absorve a energia para se tornar o novo rei.</p>
+
+        </section>
+        <!-- FIM: Seção Processo -->
+
+
+        <!-- ---- SEÇÃO 3: DERIVADOS ---- -->
+        <section id="derivados" class="conteudo-topico">
+        <!--
+            id="derivados": destino do link #derivados no menu.
+            class="conteudo-topico": herda o mesmo estilo de cartão.
+        -->
+
+            <h2>Millennium</h2>
+
+            <img src="./imagem/gojira m.jpg" alt="Pó de cacau e manteiga de cacau">
+
+            <p>Após o fiasco do filme americano de 1998 (o famoso "Zilla"), a Toho decidiu retomar o controle do monstro antes do esperado. A Era Millennium é marcada pela experimentação e falta de uma cronologia fixa. Antologia de Histórias: Ao contrário da Era Heisei, quase todos os filmes Millennium funcionam como histórias independentes. Eles ignoram os filmes anteriores e servem como sequências diretas apenas do clássico original de 1954. O Visual "Jacaré": O design do Godzilla mudou drasticamente, ganhando uma postura mais felina/reptiliana, pele esverdeada e espinhos dorsais roxos e pontiagudos. Foco na Ação e Ficção Científica: Os filmes trouxeram batalhas intensas e conceitos bizarros, como alienígenas controladores de mentes e mechas altamente tecnológicos (como o Kiryu, uma versão do Mechagodzilla construída em cima do esqueleto do Godzilla original de 1954).  O Grande Final: A era terminou em grande estilo com Godzilla: Final Wars (2004), uma celebração de 50 anos da franquia onde o Godzilla viaja pelo mundo derrotando quase todos os monstros clássicos da Toho em uma vibe de ação frenética estilo Matrix.</p>
+
+        </section>
+        <!-- FIM: Seção Derivados -->
+
+
+        <!-- ---- SEÇÃO 4: CONSUMO E BENEFÍCIOS ---- -->
+        <section id="consumo" class="conteudo-topico">
+        <!--
+            id="consumo": destino do link #consumo no menu.
+            class="conteudo-topico": herda o mesmo estilo de cartão.
+        -->
+
+            <h2>Monster-Verse</h2>
+
+            <img src="./imagem/monster.jpg" alt="Pedaços de chocolate amargo">
+
+            <p>O Blockbuster moderno: Deuses ancestrais e pancadaria em Hollywood.O MonsterVerse é a franquia americana atual, criada pela Legendary Pictures em parceria com a Toho. É um universo compartilhado moderno, focado no realismo visual e no espetáculo de efeitos visuais: A Proposta: Aqui, Godzilla e Kong são chamados de "Titãs" — forças antigas da natureza que mantêm o equilíbrio do planeta. A humanidade é apenas uma coadjuvante tentando não ser esmagada. A Evolução: Começou de forma mais séria e misteriosa em Godzilla (2014), mas rapidamente abraçou a ação desenfreada e a ficção científica exagerada em Godzilla: Rei dos Monstros, Godzilla vs. Kong e Godzilla x Kong: O Novo Império.Destaque: Introduziu o conceito da Terra Oca, um ecossistema inteiro escondido no centro do planeta de onde os monstros vieram. Resumo da ópera: É a versão de Hollywood para os kaijus, focada em lutas colossais com orçamentos gigantescos, onde o Godzilla é uma força da natureza implacável que protege seu trono.</p>
+
+        </section>
+        <!-- FIM: Seção Consumo -->
+
+    </main>
+    <!-- FIM: <main> -->
+
+
+    <!-- =====================================================
+         RODAPÉ DO SITE — <footer>
+         ===================================================== -->
+    <footer>
+    <!--
+        Tag semântica <footer>
+        =======================
+        Representa o rodapé da página.
+        Normalmente contém: copyright, créditos, links secundários,
+        informações de contato e dados legais.
+        Assim como o <header>, pode existir dentro de <article> e
+        <section> também, mas aqui representa o rodapé da página inteira.
+    -->
+
+        <p>Um breve resumo sobre todas as eras do famoso Gozilla/Gojira</p>
+        <!--
+            Entidade HTML: &copy;
+            ======================
+            Entidades HTML são códigos que representam caracteres especiais.
+            &copy; → ©  (símbolo de copyright)
+            &amp;  → &  (e comercial)
+            &lt;   → <  (menor que)
+            &gt;   → >  (maior que)
+            &nbsp; → espaço sem quebra de linha
+
+            Por que usar? Alguns caracteres têm significado especial no HTML
+            (como < e >) e precisam ser "escapados" com entidades para
+            aparecerem como texto normal.
+        -->
+
+        <p>Desenvolvido com fins informativos.</p>
+
+    </footer>
+    <!-- FIM: <footer> -->
+
+
+</body>
+<!-- FIM: <body> — fim de todo o conteúdo visível -->
+
+</html>
+<!-- FIM: <html> — fim do documento -->
